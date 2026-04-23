@@ -1,13 +1,38 @@
-export default function Navbar() {
+import { Link, useNavigate } from "react-router-dom";
+
+export default function Navbar({ userName }) {
+  const navigate = useNavigate();
+
   const logout = () => {
     localStorage.removeItem("token");
-    window.location = "/";
+    navigate("/login");
   };
 
+  // Generate initials avatar from name
+  const initials = userName
+    ? userName.split(" ").map((w) => w[0]).join("").toUpperCase().slice(0, 2)
+    : "U";
+
   return (
-    <div style={{ display: "flex", justifyContent: "space-between", padding: "10px", background: "#eee" }}>
-      <h3>Grievance System</h3>
-      <button onClick={logout}>Logout</button>
-    </div>
+    <nav className="navbar">
+      <Link to="/dashboard" className="navbar-brand" style={{ textDecoration: "none" }}>
+        <div className="navbar-logo">🎓</div>
+        <span className="navbar-title">GrieveEase</span>
+      </Link>
+
+      <div className="navbar-actions">
+        <div className="navbar-user">
+          <div className="navbar-avatar">{initials}</div>
+          {userName && (
+            <span style={{ color: "var(--text)", fontSize: "0.88rem" }}>
+              {userName}
+            </span>
+          )}
+        </div>
+        <button className="btn btn-ghost btn-sm" onClick={logout}>
+          Sign Out
+        </button>
+      </div>
+    </nav>
   );
 }

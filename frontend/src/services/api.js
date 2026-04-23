@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5001/api"
+  baseURL: "https://student-grievance-system-dqbg.onrender.com/api"
 });
 
 // attach token automatically
